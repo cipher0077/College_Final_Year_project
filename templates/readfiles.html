@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>df</title>
+</head>
+
+<body>
+    <div class="">
+        <h2>{{filen}}</h2>
+    </div>
+    <div class="">
+        <ol>
+            {% for line in flist %}
+            <li style="list-style: decimal;">{{line}}</li>
+            {%endfor%}
+        </ol>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+{
+    "dirname": "./random_files_to_search/",
+    "./random_files_to_search\\2009.txt": {
+        "wordcount": 11415,
+        "lastmodtime": "Mon Jul  5 16:13:29 2021"
+    },
+    "./random_files_to_search\\aashish.txt": {
+        "wordcount": 8410,
+        "lastmodtime": "Tue Jul  6 17:13:54 2021"
+    },
+    "./random_files_to_search\\ABC-News.txt": {
+        "wordcount": 3819,
+        "lastmodtime": "Mon Jul  5 16:13:30 2021"
+    },
+    "./random_files_to_search\\Anglesey.txt": {
+        "wordcount": 7198,
+        "lastmodtime": "Mon Jul  5 16:13:30 2021"
+    },
+    "./random_files_to_search\\Boston-University.txt": {
+        "wordcount": 18655,
+        "lastmodtime": "Mon Jul  5 16:13:30 2021"
+    },
+    "./random_files_to_search\\Budapest.txt": {
+        "wordcount": 27946,
+        "lastmodtime": "Mon Jul  5 16:13:30 2021"
+    },
+    "./random_files_to_search\\sambhram.txt": {
+        "wordcount": 116,
+        "lastmodtime": "Tue Jul  6 17:09:12 2021"
+    },
+    "./random_files_to_search\\samdfrfbhram.txt": {
+        "wordcount": 0,
+        "lastmodtime": "Mon Jul  5 16:18:06 2021"
+    }
+}

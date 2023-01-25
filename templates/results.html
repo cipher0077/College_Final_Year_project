@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results : {{searched_txt}}</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        * {
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {}
+
+        ul li {
+            list-style: none;
+        }
+
+        .p1 {
+            padding: 10px;
+        }
+
+        .m1 {
+            margin: 10px;
+        }
+
+        .p-a {
+            position: absolute;
+        }
+
+        .p-r {
+            position: relative;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .content {
+            margin: 2px;
+            padding: 10px 20px;
+            background-color: white;
+            border: 1px solid silver;
+            border-radius: 5px;
+        }
+
+        .search_embbed {
+            position: relative;
+            top: -130px;
+            height: calc(400px);
+            margin-bottom: 0px;
+            overflow: hidden;
+        }
+
+        .result_content {
+            padding: 25px;
+            position: fixed;
+            width: 16%;
+        }
+
+
+        .file_list_box li {
+            list-style: circle;
+            margin: 5px 0px;
+            color: black;
+        }
+
+        .file_list_box li a:hover {
+            color: blue;
+            transition: .3s;
+        }
+
+        .querybox-outer1 {
+            position: sticky;
+            top: 0px;
+            z-index: 12;
+            padding: 10px 50px;
+        }
+
+        input::placeholder {
+            color: black;
+        }
+
+        button[type=submit]:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class=" teal lighten-5">
+    <div class=" center teal teal lighten-4 teal-text "
+        style="margin: 0;font-size: 50px;font-weight: bold; padding: 10px;">
+        Information Retrival
+    </div>
+    <div class="row querybox-outer1 z-depth-2 teal lighten-4">
+
+        <div class="col m8">
+            <form action="http://localhost:5000/search" method="post">
+                <div class="">
+                    <div class=" querybox">
+                        <input autofocus id="input_text" class="" type="text" name='nm' autocomplete="off"
+                            placeholder="Type query here .. ." data-length="20" style="width: 500px;">
+                        <button class="btn btn-small waves-effect waves-light" type="submit" name="action"
+                            style="margin-left: 20px;">Search
+                            <i class="material-icons right">search</i>
+                        </button>
+                        <a href="http://localhost:5000/" class="btn btn-small waves-effect waves-light" name="action"
+                            style="margin-left: 20px;">Home
+                            <i class="material-icons right">home</i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="" style="padding: 20px;padding-top: 0;">
+        {% if com[6] %}
+        <div class=" result_content lighten-5" style="margin-top: 0;">
+            <div class="" style="">
+                <div class="file_list_box">
+                    <h4 class="bold">File list</h4>
+                    <ul>
+                        {% for i in range(com[0]|count)%}
+                        <li style="list-style: circle;"><a href="#{{com[0][i][25:]}}"><b>{{com[0][i][25:]}}</b></a></li>
+
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row  teal lighten-5 ">
+            <div class="col m10 offset-m2 ">
+                <div class="result_outer">
+                    <h4 class="bold">Searched query : {{searched_txt}}</h4>
+                    {% if range(com[5][0]|count!=0) %}
+                    <div class="" style="padding: 5px 20px;">
+                        <form action="http://localhost:5000/search" method="post">
+                            <input type="text" name="nm" value="{{com[5][0]}}" style="display:  none;">
+                            <b> Did you mean ? </b><button type="submit"
+                                style="text-transform: lowercase;padding: 0px 20px;"
+                                class="red lighten-1 btn-small btn waves-effect">{{com[5][0]}}</button>
+                        </form>
+                    </div>
+                    {%endif%}
+                    <div class="btn teal waves-effect bold">Total Results Found : {{com[4][0].numofd}}</div>
+                    <div class="btn teal waves-effect bold">Search Time : {{com[4][0].time}}s</div>
+                    <ul id="scroll">
+                        {% for j in range(com[0]|count) %}
+                        <li class="card-panel grey lighten-4" id={{com[0][j][25:]}}><b class="btn blue "
+                                style="margin-top:10px">Search Result Index: {{j+1}}</b>
+                            <ul>
+                                <li class="blue-text bold">
+                                    <form action="http://localhost:5000/random_files_to_search" method="post">
+                                        <input type="text" name="fname" value="{{com[0][j][25:]}}"
+                                            style="display: none;">
+                                        <button type="submit" class="blue-text btn btn-small grey lighten-4 tooltipped"
+                                            data-position="right" data-tooltip="click to open"
+                                            style="font-weight: bold;background-color: transparent; border: 0px solid;margin-top: 15px;">{{com[0][j]}}</button>
+                                    </form>
+                                </li>
+                                <li class="p1">
+                                    <b>Found At :</b>
+                                    <ul style="max-height: 250px;overflow-y: auto;">
+                                        {% for k in range(com[2][j]|count)%}
+                                        <li class="content">
+                                            <div class="">Line Number : {{ com[2][j][k] }}</div>
+                                            <div class="" style="display:flex">
+                                                <div class="">Content </div>
+                                                <div class="truncate"> : {{ com[3][j][k] }}</div>
+                                            </div>
+                                        </li>
+                                        {%endfor%}
+                                    </ul>
+                                </li>
+                                <li><button class="btn green bold white-text">Score: {{com[1][j]}}</button></li>
+                            </ul>
+                        </li>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%else%}
+    <div class=" result_content" style="margin-top: 0;">
+        <div class="" style="">
+            <div class="">
+                <h4 class="bold">File list</h4>
+                <ul>
+                    <li style="list-style: circle;"><a href=""><b>No Results</b></a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row teal lighten-5 ">
+        <div class="col m10 offset-m2 ">
+            <div class="result_outer">
+                <h4 class="bold">Searched query : {{searched_txt}}</h4>
+                {% if range(com[5][0]|count!=0) %}
+                <div class="" style="padding: 5px 20px;">
+                    <form action="http://localhost:5000/search" method="post">
+                        <input type="text" name="nm" value="{{com[5][0]}}" style="display:  none;">
+                        <b> Did you mean ? </b><button type="submit" style="text-transform: lowercase;margin: 0px 20px;"
+                            class=" btn btn-small red lighten-2 waves-effect">{{com[5][0]}}</button>
+                    </form>
+                </div>
+                {%endif%}
+                <ul>
+                    <li class="card-panel grey lighten-4" id="" }>
+                        <h4><b>0 Results Found</b></h4>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+</body>
+
+</html>
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+    crossorigin="anonymous"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.tooltipped').tooltip();
+    });
+</script>
